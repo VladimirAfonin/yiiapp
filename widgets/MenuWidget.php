@@ -4,6 +4,7 @@ namespace app\widgets;
 
 use yii\base\Widget;
 use app\models\Categories;
+use Yii;
 
 class MenuWidget extends Widget
 {
@@ -23,9 +24,17 @@ class MenuWidget extends Widget
 
     public function run()
     {
+        // получаем из кэша
+        $menu = Yii::$app->cache->get('menuHtml');
+        if($menu) return $menu;
+
+        // получаем категории, дерево, и вывод html
         $this->data = Categories::find()->indexBy('id')->asArray()->all();
         $this->tree = $this->getTree();
         $this->menuHtml = $this->getMenuHtml($this->tree);
+
+        // пишем в кэш в сек
+        Yii::$app->cache->set('menuHtml', $this->menuHtml, 60);
 
         return $this->menuHtml;
     }

@@ -50,11 +50,13 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'category/<id:\d+>' => 'category/view',
                 '<controller>/<action>' => '<controller>/<action>',
 //                'about' => 'site/about',
 //                'login' => 'site/login',
 //                'contact' => 'site/contact'
-                "<action:(about|login|contact)>" => 'site/<action>'
+                "<action:(about|login|contact)>" => 'site/<action>',
+
             ]
 
         ],

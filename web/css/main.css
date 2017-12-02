@@ -714,6 +714,23 @@ h2.title:before{
 	margin-bottom: 0px;
 }
 
+.catalog li a {
+  background-color: #FFFFFF;
+  color: #696763;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  padding: 5px 5px 0 0;
+  text-decoration: none;
+  text-transform: uppercase;
+  margin: -13px;
+}
+
+.catalog li {
+  padding-top: 3px;
+}
+
+
+
 .category-products .panel-default .panel-heading {
   background-color: #FFFFFF;
   border: 0 none;
