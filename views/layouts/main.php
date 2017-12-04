@@ -7,6 +7,7 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use app\assets\LtAppAsset;
 use yii\web\View;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 LtAppAsset::register($this);
@@ -76,7 +77,7 @@ LtAppAsset::register($this);
             <div class="row">
                 <div class="col-sm-4">
                     <div class="logo pull-left">
-                        <a href="index.html"><img src="/images/home/logo.png" alt="" /></a>
+                        <a href="<?= Url::home() ?>"><img src="/images/home/logo.png" alt="" /></a>
                     </div>
                     <div class="btn-group pull-right">
                         <div class="btn-group">
@@ -154,7 +155,10 @@ LtAppAsset::register($this);
                 </div>
                 <div class="col-sm-3">
                     <div class="search_box pull-right">
-                        <input type="text" placeholder="Search"/>
+                        <form action="<?= Url::to(['category/search']) ?>" method="get">
+<!--                        <form action="/category/search" method="get">-->
+                            <input type="text" placeholder="Search" name="q"/>
+                        </form>
                     </div>
                 </div>
             </div>

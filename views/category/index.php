@@ -1,7 +1,7 @@
 <?php
-$this->title = 'Home | E-shopper';
 use app\widgets\MenuWidget;
 use yii\helpers\Html;
+use yii\helpers\Url;
 ?>
 
 <section id="slider"><!--slider-->
@@ -122,7 +122,7 @@ use yii\helpers\Html;
                                             <img src="/images/products/<?= $product['img'] ?>" alt="<?= $product['name'] ?>" />
 <!--                                            --><?//= Html::img("@web/images/products/{$product['img']}", ['alt' => "{$product['name']}"]) ?>
                                             <h2>$<?= $product['price'] ?></h2>
-                                            <p><?= $product['name'] ?></p>
+                                            <p><a href="<?= Url::to(['product/view', 'id' => $product['id']]) ?>"><?= $product['name'] ?></a></p>
                                             <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                         </div>
                                         <?php if ($product['new']): ?>
@@ -150,6 +150,8 @@ use yii\helpers\Html;
                         <?php endforeach; ?>
                 </div><!--features_items-->
                 <?php endif; ?>
+
+
 
                 <div class="category-tab"><!--category-tab-->
                     <div class="col-sm-12">

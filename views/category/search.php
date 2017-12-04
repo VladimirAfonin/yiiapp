@@ -1,13 +1,8 @@
 <?php
 use app\widgets\MenuWidget;
 use yii\widgets\LinkPager;
-use yii\helpers\Url;
+use yii\helpers\{Url, Html};
 ?>
-<section id="advertisement">
-    <div class="container">
-        <img src="/images/shop/advertisement.jpg" alt=""/>
-    </div>
-</section>
 
 <section>
     <div class="container">
@@ -53,7 +48,7 @@ use yii\helpers\Url;
 
             <div class="col-sm-9 padding-right">
                 <div class="features_items"><!--features_items-->
-                    <h2 class="title text-center"><?= $category->name ?></h2>
+                    <h3 class="title text-center">Результаты поиска по запросу: "<?= Html::encode($search) ?>"</h3>
                     <?php if ( ! empty($products)): ?>
                         <?php $i = 0; foreach ($products as $product) : ?>
                             <div class="col-sm-4">
@@ -64,7 +59,7 @@ use yii\helpers\Url;
                                             <h2>$<?= $product['price'] ?></h2>
                                             <p><a href="<?= Url::to(['product/view', 'id' => $product['id']]) ?>"><?= $product['name'] ?></a></p>
                                             <a href="#" class="btn btn-default add-to-cart"><i
-                                                        class="fa fa-shopping-cart"></i>Add to cart</a>
+                                                    class="fa fa-shopping-cart"></i>Add to cart</a>
                                         </div>
                                     </div>
                                     <div class="choose">
@@ -75,17 +70,21 @@ use yii\helpers\Url;
                                     </div>
                                 </div>
                             </div>
-                           <?php $i++; ?>
+                            <?php $i++; ?>
                             <?php if($i == 3) :?>
                                 <div class="clearfix"></div>
                             <?php endif; ?>
                         <?php endforeach; ?>
+
                     <?php else: ?>
-                        <p>товаров в данной категории пока нет!</p>
+                            <p class="text-center">По запросу "<?= $search ?>" ничего не найдено!</p>
                     <?php endif; ?>
                     <div class="clearfix"></div>
+
                     <!-- место для навигации -->
-                    <?= LinkPager::widget(['pagination' => $pages]) ?>
+                    <?php if ( ! empty($pages)): ?>
+                        <?= LinkPager::widget(['pagination' => $pages]) ?>
+                    <?php endif; ?>
 
                 </div><!--features_items-->
             </div>
