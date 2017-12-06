@@ -48,4 +48,24 @@ class OrderItems extends ActiveRecord
             [['name'], 'string', 'max' => 255],
         ];
     }
+
+    /**
+     * сохраняем данные в Order items table
+     *
+     * @param $items
+     * @param $order_id
+     */
+    public static function saveOrderItems($items, $order_id)
+    {
+        foreach ($items as $id => $item) {
+            $orderItems = new OrderItems();
+            $orderItems->order_id = $order_id;
+            $orderItems->product_id = $id;
+            $orderItems->name = $item['name'];
+            $orderItems->price = $item['price'];
+            $orderItems->qty_item = $item['qty'];
+            $orderItems->sum_item = $item['qty'] * $item['price'];
+            $orderItems->save();
+        }
+    }
 }

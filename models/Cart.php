@@ -29,6 +29,12 @@ class Cart extends ActiveRecord
         $_SESSION['cart.sum'] = isset($_SESSION['cart.sum']) ? ($_SESSION['cart.sum'] + ($qty * $product->price)) : ($qty * $product->price);
     }
 
+    /**
+     * пересчет корзины
+     *
+     * @param $id
+     * @return bool
+     */
     public function recalc($id)
     {
         if(!isset($_SESSION['cart'][$id])) return false;
@@ -40,7 +46,5 @@ class Cart extends ActiveRecord
         $_SESSION['cart.sum'] -= $qtySum;
 
         unset($_SESSION['cart'][$id]);
-
-
     }
 }

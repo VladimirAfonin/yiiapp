@@ -17,10 +17,9 @@ class CartController extends AppController
      */
     public function actionAdd()
     {
-
         $id = Yii::$app->request->get('id');
         $qty = (int)Yii::$app->request->get('qty');
-        $qty = (!($qty)) ? 1 : $qty;
+        $qty = ( ! $qty) ? 1 : $qty;
 
         $product = Products::findOne($id);
         if(empty($product)) return false;
@@ -104,12 +103,23 @@ class CartController extends AppController
         $order = new Order();
 
         if($order->load(Yii::$app->request->post())) {
-            debug(Yii::$app->request->post());
+            // добавляем еще поля
+            $order->qty = $session['cart.qty'];
+            $order->sum = $session['cart.sum'];
+            if($order->save()) {
+                OrderItems::saveOrderItems($session['cart'], $order->id);
+                Yii::$app->session->setFlash('success', 'Ваш заказ принят.');
+                $session->remove('cart');
+                $session->remove('cart.qty');
+                $session->remove('cart.sum');
+
+                return $this->refresh();
+            } else {
+                Yii::$app->session->setFlash('error', 'Ошибка при оформлении заказа');
+            }
         }
 
         return $this->render('view', compact('session', 'order'));
     }
-
-
 
 };
