@@ -988,6 +988,10 @@ h2.title {
   color: #FFFFFF;
 }
 
+.del-item {
+  cursor: pointer;
+}
+
 .choose {
   border-top: 1px solid #F7F7F0;
 }

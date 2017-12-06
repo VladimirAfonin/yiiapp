@@ -94,11 +94,11 @@ use yii\helpers\Url;
 								<span>
 									<span>US $<?= $product['price'] ?></span>
 									<label>Quantity:</label>
-									<input type="text" value="3"/>
-									<button type="button" class="btn btn-fefault cart">
+									<input type="text" value="1" id="qty"/>
+									<a type="button" class="btn btn-fefault cart add-to-cart" data-id="<?= $product['id'] ?>">
                                         <i class="fa fa-shopping-cart"></i>
                                         Add to cart
-                                    </button>
+                                    </a>
 								</span>
                                 <p><b>Availability:</b> In Stock</p>
                                 <p><b>Condition:</b> New</p>
