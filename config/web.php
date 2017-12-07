@@ -9,6 +9,12 @@ $config = [
     'bootstrap' => ['log'],
     'language' => 'ru',
     'defaultRoute' => 'category/index', // стартовый роут
+    'modules' => [  // наш модуль
+        'admin' => [
+            'class' => 'app\modules\admin\Module',
+            'layout' => 'admin', // указываем шаблон для модуля
+        ],
+    ],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -25,6 +31,7 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
+            'loginUrl' => 'login', // куда будет перенаправлен пользователь если он не авторизован
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
