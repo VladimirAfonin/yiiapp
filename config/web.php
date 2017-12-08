@@ -13,6 +13,7 @@ $config = [
         'admin' => [
             'class' => 'app\modules\admin\Module',
             'layout' => 'admin', // указываем шаблон для модуля
+            'defaultRoute' => 'order/index', // стартовый роут для админ
         ],
     ],
     'aliases' => [

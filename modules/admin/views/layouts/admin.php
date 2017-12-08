@@ -138,14 +138,11 @@ LtAppAsset::register($this);
                         </div>
                         <div class="mainmenu pull-left">
                             <ul class="nav navbar-nav collapse navbar-collapse">
-                                <li><a href="index.html" class="active">Home</a></li>
-                                <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
+                                <li><a href="<?= Url::to('/admin') ?>" class="active">Home</a></li>
+                                <li class="dropdown"><a href="#">Категории<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Products</a></li>
-                                        <li><a href="product-details.html">Product Details</a></li>
-                                        <li><a href="checkout.html">Checkout</a></li>
-                                        <li><a href="cart.html">Cart</a></li>
-                                        <li><a href="login.html">Login</a></li>
+                                        <li><a href="<?= Url::to('/category/create') ?>">добавить категорию</a></li>
+                                        <li><a href="<?= Url::to('/category/index') ?>">список категорий</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
@@ -172,7 +169,9 @@ LtAppAsset::register($this);
         </div><!--/header-bottom-->
     </header><!--/header-->
 
-    <?= $content ; ?>
+    <div class="container">
+        <?= $content ; ?>
+    </div>
 
     <footer id="footer"><!--Footer-->
         <div class="footer-top">

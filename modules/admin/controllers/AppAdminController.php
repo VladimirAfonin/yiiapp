@@ -3,28 +3,9 @@
 namespace app\modules\admin\controllers;
 
 
-use yii\filters\AccessControl;
 use yii\web\Controller;
 
 class AppAdminController extends Controller
 {
-    /**
-     * фильтр на пре-аутентификация
-     *
-     * @return array
-     */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                    'allow' => true,
-                    'roles' => ['@']
-                    ]
-                ]
-            ]
-        ];
-    }
+
 }
