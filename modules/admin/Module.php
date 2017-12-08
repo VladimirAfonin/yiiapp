@@ -25,7 +25,7 @@ class Module extends \yii\base\Module
     }
 
     /**
-     * фильтр на пре-аутентификация
+     * фильтр на пре-аутентификацию
      *
      * @return array
      */

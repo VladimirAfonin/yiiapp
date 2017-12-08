@@ -141,8 +141,8 @@ LtAppAsset::register($this);
                                 <li><a href="<?= Url::to('/admin') ?>" class="active">Home</a></li>
                                 <li class="dropdown"><a href="#">Категории<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="<?= Url::to('/category/create') ?>">добавить категорию</a></li>
-                                        <li><a href="<?= Url::to('/category/index') ?>">список категорий</a></li>
+                                        <li><a href="<?= Url::to('/admin/category/create') ?>">добавить категорию</a></li>
+                                        <li><a href="<?= Url::to('/admin/category/index') ?>">список категорий</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
@@ -168,6 +168,21 @@ LtAppAsset::register($this);
             </div>
         </div><!--/header-bottom-->
     </header><!--/header-->
+    <div class="container">
+        <?php if(Yii::$app->session->hasFlash('success')): ?>
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <?= Yii::$app->session->getFlash('success') ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if(Yii::$app->session->hasFlash('error')): ?>
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <?= Yii::$app->session->getFlash('error') ?>
+            </div>
+        <?php endif; ?>
+    </div>
 
     <div class="container">
         <?= $content ; ?>

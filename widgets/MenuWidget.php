@@ -15,6 +15,8 @@ class MenuWidget extends Widget
     public $tree;
     // готовый код
     public $menuHtml;
+    // получаем доп данные(parent id)
+    public $model;
 
     public function init()
     {
@@ -24,17 +26,24 @@ class MenuWidget extends Widget
 
     public function run()
     {
-        // получаем из кэша
-        $menu = Yii::$app->cache->get('menuHtml');
-        if($menu) return $menu;
+        // кэшируем только для user части
+        if($this->tpl == 'menu.php') {
+            // получаем из кэша
+            $menu = Yii::$app->cache->get('menuHtml');
+            if($menu) return $menu;
+        }
 
         // получаем категории, дерево, и вывод html
         $this->data = Categories::find()->indexBy('id')->asArray()->all();
         $this->tree = $this->getTree();
         $this->menuHtml = $this->getMenuHtml($this->tree);
 
-        // пишем в кэш в сек
-        Yii::$app->cache->set('menuHtml', $this->menuHtml, 60);
+        // кэшируем только для user части
+        if($this->tpl == 'menu.php') {
+            // пишем в кэш в сек
+            Yii::$app->cache->set('menuHtml', $this->menuHtml, 60);
+        }
+
 
         return $this->menuHtml;
     }
@@ -61,13 +70,14 @@ class MenuWidget extends Widget
      * формируем меню
      *
      * @param $tree
+     * @param $tab
      * @return string
      */
-    protected function getMenuHtml($tree)
+    protected function getMenuHtml($tree, $tab = '')
     {
         $str = '';
         foreach ($tree as $category) {
-            $str .= $this->catToTemplate($category);
+            $str .= $this->catToTemplate($category, $tab);
         }
         return $str;
     }
@@ -77,9 +87,10 @@ class MenuWidget extends Widget
      * сбрасываем его и очищаем
      *
      * @param $category
+     * @param $tab
      * @return string
      */
-    protected function catToTemplate($category)
+    protected function catToTemplate($category, $tab = '')
     {
         ob_start();
         include __DIR__ .'/views/'.$this->tpl;
