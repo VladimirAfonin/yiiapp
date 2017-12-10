@@ -22,12 +22,30 @@ use app\modules\admin\models\Category;
  */
 class Product extends \yii\db\ActiveRecord
 {
+    public $image;
+    public $gallery;
+
+
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
         return 'product';
+    }
+
+    /**
+     * поведение -> для images
+     *
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'image' => [
+                'class' => 'rico\yii2images\behaviors\ImageBehave',
+            ]
+        ];
     }
 
     /**
@@ -51,6 +69,8 @@ class Product extends \yii\db\ActiveRecord
             [['content', 'hit', 'new', 'sale'], 'string'],
             [['price'], 'number'],
             [['name', 'keywords', 'description', 'img'], 'string', 'max' => 255],
+            [['image'], 'file', 'extensions' => 'png, jpg, jpeg'],
+            [['gallery'], 'file'/*, 'skipOnEmpty' => true*/, 'extensions' => 'png, jpg, jpeg', 'maxFiles' => 4],
         ];
     }
 
@@ -67,10 +87,49 @@ class Product extends \yii\db\ActiveRecord
             'price' => 'Цена',
             'keywords' => 'Keywords',
             'description' => 'Description',
-            'img' => 'Фото',
+            'image' => 'Фото',
+            'gallery' => 'Фото галереи',
             'hit' => 'Hit',
             'new' => 'New',
             'sale' => 'Sale',
         ];
+    }
+
+    /**
+     * метод для загрузки фото
+     *
+     * @return bool
+     */
+    public function upload()
+    {
+        if($this->validate()) {
+            $path = 'upload/store/' . $this->image->baseName . '.' . $this->image->extension;
+            $this->image->saveAs($path);
+            $this->attachImage($path, true);
+            @unlink($path);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * метод для загрузки галереи
+     *
+     * @return bool
+     */
+    public function uploadGallery()
+    {
+        if($this->validate()) {
+            foreach($this->gallery as $file) {
+                $path = 'upload/store/' . $file->baseName . '.' . $file->extension;
+                $file->saveAs($path);
+                $this->attachImage($path);
+                @unlink($path);
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 }

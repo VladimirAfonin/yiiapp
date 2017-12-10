@@ -8,6 +8,20 @@ use yii\db\ActiveRecord;
 class Cart extends ActiveRecord
 {
     /**
+     * поведение -> для images
+     *
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'image' => [
+                'class' => 'rico\yii2images\behaviors\ImageBehave',
+            ]
+        ];
+    }
+
+    /**
      * добавление товара в корзину
      *
      * @param $product

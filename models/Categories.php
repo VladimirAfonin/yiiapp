@@ -12,6 +12,20 @@ class Categories extends ActiveRecord
     }
 
     /**
+     * поведение -> для images
+     *
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'image' => [
+                'class' => 'rico\yii2images\behaviors\ImageBehave',
+            ]
+        ];
+    }
+
+    /**
      * связь с продуктами
      *
      * @return \yii\db\ActiveQuery

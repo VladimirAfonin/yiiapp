@@ -12,6 +12,20 @@ class Products extends ActiveRecord
     }
 
     /**
+     * поведение -> для images
+     *
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'image' => [
+                'class' => 'rico\yii2images\behaviors\ImageBehave',
+            ]
+        ];
+    }
+
+    /**
      * один прод имеет одну cat.
      *
      * @return \yii\db\ActiveQuery
